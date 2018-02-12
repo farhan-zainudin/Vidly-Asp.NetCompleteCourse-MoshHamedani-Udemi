@@ -8,9 +8,8 @@
 <table class="table table-hover table-responsive">
     <thead>
         <tr>
-            <th>
-                <text>Movie Name</text>
-            </th>
+            <th>Name</th>
+            <th>Genre</th>
         </tr>
     </thead>
     <tbody>
@@ -20,6 +19,7 @@
             {
                 <tr>
                     <td>@Html.ActionLink(movie.Name, "Details/" + movie.Id.ToString(), "Movies")</td>
+                    <td>@movie.Genre.Name</td>
                 </tr>
             }
         }

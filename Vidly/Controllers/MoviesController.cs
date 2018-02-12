@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,10 +11,22 @@ namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
+        private ApplicationDbContext _DbContext;
+
+        public MoviesController()
+        {
+            _DbContext = new ApplicationDbContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _DbContext.Dispose();
+        }
+
         [Route("Movies")]
         public ActionResult Movies()
         {
-            var list = GetMovies();
+            var list = _DbContext.Movies.Include(x=> x.Genre).ToList();
 
             return View(list);
         }
@@ -21,7 +34,7 @@ namespace Vidly.Controllers
         [Route("Movies/Details/{id}")]
         public ActionResult Details(int id)
         {
-            var movie = GetMovies().Single(x=> x.Id == id);
+            var movie = _DbContext.Movies.Include(x => x.Genre).Single(x=> x.Id == id);
 
             return View(movie);
         }
@@ -55,17 +68,6 @@ namespace Vidly.Controllers
         public ActionResult ByReleaseDate(int year, int month)
         {
             return Content(year + "/" + month);
-        }
-
-        private IEnumerable<Movie> GetMovies()
-        {
-            IEnumerable<Movie> movies = new List<Movie>()
-            {
-                new Movie{ Id = 1, Name= "Black Panther"},
-                new Movie{ Id = 2, Name= "Avengers Infinity War Part I"}
-            };
-
-            return movies;
         }
     }
 }

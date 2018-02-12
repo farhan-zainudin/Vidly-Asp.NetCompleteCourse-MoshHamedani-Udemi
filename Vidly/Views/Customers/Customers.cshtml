@@ -8,9 +8,8 @@
 <table class="table table-hover table-responsive">
     <thead>
         <tr>
-            <th>
-                <text>Customer Name</text>
-            </th>
+            <th>Name</th>
+            <th>Membership Type</th>
         </tr>
     </thead>
     <tbody>
@@ -20,6 +19,7 @@
             {
                 <tr>
                     <td>@Html.ActionLink(customer.Name, "Details/" + customer.Id.ToString(), "Customers")</td>
+                    <td>@customer.MembershipType.Name</td>
                 </tr>
             }
         }
