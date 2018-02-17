@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using System.Web.UI;
 
 namespace Vidly.Controllers
@@ -15,16 +16,19 @@ namespace Vidly.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            throw new Exception();
 
-            return View();
+            //ViewBag.Message = "Your application description page.";
+
+            //return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            return HttpNotFound();
+            //ViewBag.Message = "Your contact page.";
 
-            return View();
+            //return View();
         }
     }
 }
